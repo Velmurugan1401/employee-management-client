@@ -1,0 +1,14 @@
+.leave-chart{
+    display: flex;
+    justify-content: center;
+    border: 1px solid #DBDBDB;
+    margin-top: 50px;
+    padding: 10px;
+}
+.Dashboard{
+    padding: 50px;
+}
+
+.charttext{
+    color: black;
+}
