@@ -1,11 +1,13 @@
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Dashboard from './pages/Dashboard';
+
+import RouterProvider from './routes/routerProvider';
 
 function App() {
   return (
-    <div className="App">
-      <Dashboard />
-    </div>
+    <React.Fragment>
+      <RouterProvider />
+    </React.Fragment>
   );
 }
 

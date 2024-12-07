@@ -2,11 +2,7 @@ import React from "react";
 import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 
 const PieChartComponent = React.memo(function PieChartComponent({ datas }) {
-  var data = [
-    { name: "Sick Leave", value: datas['totalsickLeave'] ? datas['totalsickLeave'] : 0 },
-    { name: "Casual Leave", value: datas['totalCasualLeave'] ? datas['totalCasualLeave'] : 0 },
-    { name: "Earned Leave", value: datas['totalEarnedLeave'] ? datas['totalEarnedLeave'] : 0 },
-  ];
+
   // Colors for each slice
   const COLORS = ["#4472C4", "#ED7D31", "#f8d210"];
 
@@ -15,7 +11,7 @@ const PieChartComponent = React.memo(function PieChartComponent({ datas }) {
       <h2>Leaves</h2>
       <PieChart width={400} height={400}>
         <Pie
-          data={data}
+          data={datas}
           dataKey="value"
           nameKey="name"
           cx="50%"
@@ -24,12 +20,12 @@ const PieChartComponent = React.memo(function PieChartComponent({ datas }) {
           fill="#8884d8"
           label
         >
-          {data.map((entry, index) => (
+          {datas.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
         <Legend payload={
-          data.map(
+          datas.map(
             (item, index) => ({
               id: item.name,
               type: "square",

@@ -1,9 +1,9 @@
 import { Button } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import DataTable from "../components/table"
 import PieChartComponent from "../components/chart";
 import LeaveModal from "../components/modal"
-import LeaveApi from "../service/leaveapi";
+import LeaveApi from "../service/leaveApi";
 import "../assets/css/dashboard.css"
 
 function Dashboard(params) {
@@ -23,14 +23,16 @@ function Dashboard(params) {
     { header: "Total No. of Availed Leaves", accessor: "totalUsedLeaves" },
     { header: "Balance", accessor: "availLeave" },
   ];
-  const handleSave = async (formData) => {
-    await LeaveApi.createLeave(formData).then((res) => {
-      alert("Leave applied successfully")
-      listAll()
-    }).catch((err) => {
-      alert(`Error in apply leave`)
-    })
-  };
+
+  const handleSave = useCallback(async (formData) => {
+    try {
+      await LeaveApi.createLeave(formData);
+      alert("Leave applied successfully");
+      listAll();
+    } catch (err) {
+      alert(`Error in applying leave`);
+    }
+  }, []);
 
   const listleaves = async () => {
     await LeaveApi.getleaves().then((res) => {
@@ -74,7 +76,7 @@ function Dashboard(params) {
         </Button>
       </div>
       <div className="datatable">
-        {Leavedata.length?<DataTable data={Leavedata} columns={columns} />:<h3>No data found</h3>}
+        {Leavedata.length ? <DataTable data={Leavedata} columns={columns} /> : <h3>No data found</h3>}
       </div>
       <div className="container mt-5">
         <LeaveModal
@@ -84,7 +86,7 @@ function Dashboard(params) {
         />
       </div>
       <div className="leave-chart">
-      {Object.keys(summary).length?<PieChartComponent datas={summary} />:<h3>No data found</h3>}
+        {Object.keys(summary).length ? <PieChartComponent datas={summary} /> : <h3>No data found</h3>}
       </div>
     </div>
   )
